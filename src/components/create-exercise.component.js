@@ -9,7 +9,7 @@ export default class CreateExercise extends Component{
         super(props);
 
         // bind the keyword "this" 
-        this.onChangeUserName = this.onChangeUserName.bind(this);
+        this.onChangeWeight = this.onChangeWeight.bind(this);
         this.onChangeDescription = this.onChangeDescription.bind(this);
         this.onChangeDuration = this.onChangeDuration.bind(this);
         this.onChangeDate = this.onChangeDate.bind(this);
@@ -18,7 +18,7 @@ export default class CreateExercise extends Component{
         // State is a variable in REACT
         // ex you do not use let var =...
         this.state = {
-            username: '',
+            weight: 0,
             description:'',
             duration:0,
             date: new Date(),
@@ -46,9 +46,9 @@ export default class CreateExercise extends Component{
 
     // Change the user name
     // Always use setState, never just reassign values
-    onChangeUserName(e){
+    onChangeWeight(e){
         this.setState({
-            username: e.target.value
+            weight: e.target.value
         })
     }
 
@@ -76,7 +76,7 @@ export default class CreateExercise extends Component{
         e.preventDefault();
 
         const exercise = {
-            username: this.state.username,
+            weight: this.state.weight,
             description: this.state.description,
             duration: this.state.duration,
             date: this.state.date
@@ -96,25 +96,28 @@ export default class CreateExercise extends Component{
             <div>
                 <h3> Create New Exercise Log</h3>
                 <form onSubmit={this.onSubmit}>
+
+                    
                     <div className="form-group">
-                        <label>Username: </label>
+                        <label>Type of Exercise</label>
                         <select ref="userInput"
                             required
-                            className="form-control"
-                            value={this.state.username}
-                            onChange={this.onChangeUserName}>
-                            {
-                                this.state.users.map(function(user){
-                                    return <option
-                                        key={user}
-                                        value={user}>{user}
-                                        </option>;
-                                })
-                            }
+                            className="form-control">
+                                <option>Cardio/PlyoMetrics</option>
+                                <option>Weight/Resistance</option>
                             </select>
                     </div>
                     <div className="form-group">
-                        <label> Description: </label>
+                        <label>Weight (lbs): </label>
+                        <input type="text"
+                               required
+                               className="form-control"
+                               value={this.state.weight} 
+                               onChange={this.onChangeWeight} 
+                               />
+                    </div>
+                    <div className="form-group">
+                        <label> Workout Name: </label>
                         <input type="text"
                             required
                             className="form-control"
@@ -123,7 +126,7 @@ export default class CreateExercise extends Component{
                             />
                     </div>
                     <div className="form-group">
-                        <label> Duration (in minutes): </label>
+                        <label> Duration (reps or minutes): </label>
                         <input
                             type="text"
                             className="form-control"
