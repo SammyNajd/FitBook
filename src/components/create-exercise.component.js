@@ -112,6 +112,8 @@ export default class CreateExercise extends Component{
                         <select ref="userInput"
                             required
                             className="form-control"
+                            value={this.state.typeOfExercise}
+                            onChange={this.onChangeTypeOfExercise}
                             >
                                 <option>Cardio/PlyoMetrics</option>
                                 <option>Weight/Resistance</option>
