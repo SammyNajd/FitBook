@@ -10,6 +10,7 @@ export default class CreateExercise extends Component{
 
         // bind the keyword "this" 
         this.onChangeWeight = this.onChangeWeight.bind(this);
+        this.onChangeTypeOfExercise = this.onChangeTypeOfExercise.bind(this);
         this.onChangeDescription = this.onChangeDescription.bind(this);
         this.onChangeDuration = this.onChangeDuration.bind(this);
         this.onChangeDate = this.onChangeDate.bind(this);
