@@ -8,7 +8,7 @@ export default class CreateExercise extends Component{
     constructor(props){
         super(props);
 
-        // bind the keyword "this" 
+        // bind the keyword "this" change
         this.onChangeWeight = this.onChangeWeight.bind(this);
         this.onChangeTypeOfExercise = this.onChangeTypeOfExercise.bind(this);
         this.onChangeDescription = this.onChangeDescription.bind(this);
