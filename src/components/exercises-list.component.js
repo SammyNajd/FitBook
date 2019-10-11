@@ -5,6 +5,7 @@ import axios from 'axios';
 const Exercise = props => (
   <tr>
     <td>{props.exercise.weight}</td>
+    <td>{props.exercise.typeOfExercise}</td>
     <td>{props.exercise.description}</td>
     <td>{props.exercise.duration}</td>
     <td>{props.exercise.date.substring(0,10)}</td>
@@ -56,6 +57,7 @@ export default class ExercisesList extends Component {
           <thead className="thead-light">
             <tr>
               <th>Weight</th>
+              <th>Type of Exercise</th>
               <th>Description</th>
               <th>Duration</th>
               <th>Date</th>

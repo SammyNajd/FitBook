@@ -9,12 +9,14 @@ router.route('/').get((req, res) => {
 
 router.route('/add').post((req, res) => {
   const weight = Number(req.body.weight);
+  const typeOfExercise = req.body.typeOfExercise;
   const description = req.body.description;
   const duration = Number(req.body.duration);
   const date = Date.parse(req.body.date);
 
   const newExercise = new Exercise({
     weight,
+    typeOfExercise,
     description,
     duration,
     date,
@@ -44,6 +46,7 @@ router.route('/update/:id').post((req,res) => {
   Exercise.findById(req.params.id)
     .then(exercise => {
       exercise.weight = Number(req.body.weight);
+      exercise.typeOfExercise = req.body.typeOfExercise;
       exercise.description = req.body.description;
       exercise.duration = Number(req.body.duration);
       exercise.date = Date.parse(req.body.date);

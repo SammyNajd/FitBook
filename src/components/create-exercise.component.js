@@ -19,6 +19,7 @@ export default class CreateExercise extends Component{
         // ex you do not use let var =...
         this.state = {
             weight: 0,
+            typeOfExercise: '',
             description:'',
             duration:0,
             date: new Date(),
@@ -52,6 +53,12 @@ export default class CreateExercise extends Component{
         })
     }
 
+    onChangeTypeOfExercise(e){
+        this.setState({
+            typeOfExercise: e.target.value
+        })
+    }
+
     onChangeDescription(e){
         this.setState({
             description: e.target.value
@@ -77,6 +84,7 @@ export default class CreateExercise extends Component{
 
         const exercise = {
             weight: this.state.weight,
+            typeOfExercise: this.state.typeOfExercise,
             description: this.state.description,
             duration: this.state.duration,
             date: this.state.date
@@ -102,7 +110,8 @@ export default class CreateExercise extends Component{
                         <label>Type of Exercise</label>
                         <select ref="userInput"
                             required
-                            className="form-control">
+                            className="form-control"
+                            >
                                 <option>Cardio/PlyoMetrics</option>
                                 <option>Weight/Resistance</option>
                             </select>
