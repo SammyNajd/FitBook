@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { isThisSecond } from 'date-fns';
+
 
 const Exercise = props => (
   <tr>
@@ -69,7 +69,6 @@ export default class ExercisesList extends Component {
 
 
   render() {
-    let filteredRes = this.props.exercises;
     return (
       <div>
         <h3>Logged Exercises</h3>
