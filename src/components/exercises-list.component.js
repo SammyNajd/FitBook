@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { isThisSecond } from 'date-fns';
 
 const Exercise = props => (
   <tr>
@@ -20,8 +21,25 @@ export default class ExercisesList extends Component {
     super(props);
 
     this.deleteExercise = this.deleteExercise.bind(this)
+    this.onChangeSearch = this.onChangeSearch.bind(this)
+    this.componentDidMount = this.componentDidMount.bind(this)
 
-    this.state = {exercises: []};
+    this.state = {exercises: [],
+                  searchRes: ""};
+  }
+
+
+
+  onChangeSearch(e){
+    this.setState({searchRes: e.target.value.toLowerCase()});
+    console.log(this.state.searchRes);
+    if(this.state.searchRes.length > 1 ){
+      this.setState({
+        exercises: this.state.exercises.filter(exer => exer.description.includes(this.state.searchRes))
+    })}
+    else{
+      this.componentDidMount();
+    }
   }
 
   componentDidMount() {
@@ -49,10 +67,19 @@ export default class ExercisesList extends Component {
     })
   }
 
+
   render() {
+    let filteredRes = this.props.exercises;
     return (
       <div>
         <h3>Logged Exercises</h3>
+        <h6>Filter by Description</h6>
+        <input type="text"
+                className="form-control"
+                value={this.state.searchRes}
+                onChange={this.onChangeSearch}
+                />
+
         <table className="table">
           <thead className="thead-light">
             <tr>
