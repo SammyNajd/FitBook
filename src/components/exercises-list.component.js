@@ -36,14 +36,14 @@ export default class ExercisesList extends Component {
     this.setState({searchRes: e.target.value.toLowerCase()});
     if(this.state.searchRes.length > 1 ){
       this.setState({
-        exercises: this.state.exercises.filter(exer => exer.description.includes(this.state.searchRes))
+        exercises: this.state.exercises.filter(exer => exer.description.toLowerCase().includes(this.state.searchRes))
     })}
     else{
       this.componentDidMount();
     }
   }
 
-  
+
 
   onSelectDropDown(evt){
     this.setState({dropDownSel: evt});
