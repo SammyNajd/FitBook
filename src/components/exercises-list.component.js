@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-
+import {DropdownButton, Dropdown} from 'react-bootstrap';
 
 const Exercise = props => (
   <tr>
@@ -23,16 +23,17 @@ export default class ExercisesList extends Component {
     this.deleteExercise = this.deleteExercise.bind(this)
     this.onChangeSearch = this.onChangeSearch.bind(this)
     this.componentDidMount = this.componentDidMount.bind(this)
+    this.onSelectDropDown = this.onSelectDropDown.bind(this)
 
     this.state = {exercises: [],
-                  searchRes: ""};
+                  searchRes: "",
+                  dropDownSel: ""};
   }
 
 
 
   onChangeSearch(e){
     this.setState({searchRes: e.target.value.toLowerCase()});
-    console.log(this.state.searchRes);
     if(this.state.searchRes.length > 1 ){
       this.setState({
         exercises: this.state.exercises.filter(exer => exer.description.includes(this.state.searchRes))
@@ -40,6 +41,12 @@ export default class ExercisesList extends Component {
     else{
       this.componentDidMount();
     }
+  }
+
+  
+
+  onSelectDropDown(evt){
+    this.setState({dropDownSel: evt});
   }
 
   componentDidMount() {
@@ -72,7 +79,11 @@ export default class ExercisesList extends Component {
     return (
       <div>
         <h3>Logged Exercises</h3>
-        <h6>Filter by Description</h6>
+        <DropdownButton id="dropdown-basic-button" title={"Filter by " + this.state.dropDownSel} onSelect={this.onSelectDropDown}> 
+          <Dropdown.Item eventKey="Type">Type of Exercise</Dropdown.Item>
+          <Dropdown.Item eventKey="Description">Description</Dropdown.Item>
+          <Dropdown.Item eventKey="Date">Date</Dropdown.Item> 
+        </DropdownButton>
         <input type="text"
                 className="form-control"
                 value={this.state.searchRes}
@@ -85,7 +96,7 @@ export default class ExercisesList extends Component {
               <th>Weight</th>
               <th>Type of Exercise</th>
               <th>Description</th>
-              <th>Duration</th>
+              <th>Duration/Reps</th>
               <th>Date</th>
               <th>Actions</th>
             </tr>
