@@ -27,7 +27,7 @@ export default class ExercisesList extends Component {
 
     this.state = {exercises: [],
                   searchRes: "",
-                  dropDownSel: "",
+                  dropDownSel: "Type",
                   filteredExercises: []};
   }
 
@@ -36,21 +36,32 @@ export default class ExercisesList extends Component {
   onChangeSearch(e){
     const search = e.target.value.toLowerCase();
 
-    this.setState({
-      searchRes: search,
-      filteredExercises: this.state.exercises.filter(
-        (exer) => exer.description.toLowerCase().includes(search)
-      )
-    });
-    /*
-    this.setState({searchRes: e.target.value.toLowerCase()});
-      if(this.state.searchRes.length > 1 ){
+    if(this.state.dropDownSel === "Description"){
       this.setState({
-        exercises: this.state.exercises.filter(exer => exer.description.toLowerCase().includes(this.state.searchRes))
-    })}
+        searchRes: search,
+        filteredExercises: this.state.exercises.filter(
+          (exer) => exer.description.toLowerCase().includes(search)
+        )
+      });
+    }
+
+    else if(this.state.dropDownSel === "Type"){
+      this.setState({
+        searchRes: search,
+        filteredExercises: this.state.exercises.filter(
+          (exer) => exer.typeOfExercise.toLowerCase().includes(search)
+        )
+      });
+    }
+
     else{
-      this.componentDidMount();
-    }*/
+      this.setState({
+        searchRes: search,
+        filteredExercises: this.state.exercises.filter(
+          (exer) => exer.date.includes(search)
+        )
+      });
+    }
   }
 
 
