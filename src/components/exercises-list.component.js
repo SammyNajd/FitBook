@@ -27,20 +27,30 @@ export default class ExercisesList extends Component {
 
     this.state = {exercises: [],
                   searchRes: "",
-                  dropDownSel: ""};
+                  dropDownSel: "",
+                  filteredExercises: []};
   }
 
 
 
   onChangeSearch(e){
+    const search = e.target.value.toLowerCase();
+
+    this.setState({
+      searchRes: search,
+      filteredExercises: this.state.exercises.filter(
+        (exer) => exer.description.toLowerCase().includes(search)
+      )
+    });
+    /*
     this.setState({searchRes: e.target.value.toLowerCase()});
-    if(this.state.searchRes.length > 1 ){
+      if(this.state.searchRes.length > 1 ){
       this.setState({
         exercises: this.state.exercises.filter(exer => exer.description.toLowerCase().includes(this.state.searchRes))
     })}
     else{
       this.componentDidMount();
-    }
+    }*/
   }
 
 
@@ -52,7 +62,8 @@ export default class ExercisesList extends Component {
   componentDidMount() {
     axios.get('http://localhost:5000/exercises/')
       .then(response => {
-        this.setState({ exercises: response.data })
+        this.setState({ exercises: response.data, 
+                        filteredExercises: response.data})
       })
       .catch((error) => {
         console.log(error);
@@ -69,7 +80,7 @@ export default class ExercisesList extends Component {
   }
 
   exerciseList() {
-    return this.state.exercises.map(currentexercise => {
+    return this.state.filteredExercises.map(currentexercise => {
       return <Exercise exercise={currentexercise} deleteExercise={this.deleteExercise} key={currentexercise._id}/>;
     })
   }
