@@ -10,13 +10,11 @@ export default class EditExercise extends Component {
     this.state = {
       weight: 0, 
       typeOfExercise: 'Cardio/PlyoMetrics',
-      username: '',
       description: '',
       duration: 0,
       date: new Date(),
       users: []
     }
-    this.onChangeUsername = this.onChangeUsername.bind(this);
     this.onChangeWeight = this.onChangeWeight.bind(this);
     this.onChangeTypeOfExercise = this.onChangeTypeOfExercise.bind(this);
     this.onChangeDescription = this.onChangeDescription.bind(this);
@@ -31,7 +29,6 @@ export default class EditExercise extends Component {
     axios.get('http://localhost:5000/exercises/'+this.props.match.params.id)
       .then(response => {
         this.setState({
-          username: response.data.username,
           weight: response.data.weight,
           description: response.data.description,
           typeOfExercise: response.data.typeOfExercise,
@@ -55,12 +52,6 @@ export default class EditExercise extends Component {
         console.log(error);
       })
 
-  }
-
-  onChangeUsername(e) {
-    this.setState({
-      username: e.target.value
-    })
   }
 
   onChangeWeight(e) {
@@ -98,7 +89,6 @@ export default class EditExercise extends Component {
     const exercise = {
       weight: this.state.weight,
       typeOfExercise: this.state.typeOfExercise,
-      username: this.state.username,
       description: this.state.description,
       duration: this.state.duration,
       date: this.state.date
@@ -117,23 +107,6 @@ export default class EditExercise extends Component {
     <div>
       <h3>Edit Exercise Log</h3>
       <form onSubmit={this.onSubmit}>
-        <div className="form-group"> 
-          <label>Username: </label>
-          <select ref="userInput"
-              required
-              className="form-control"
-              value={this.state.username}
-              onChange={this.onChangeUsername}>
-              {
-                this.state.users.map(function(user) {
-                  return <option 
-                    key={user}
-                    value={user}>{user}
-                    </option>;
-                })
-              }
-          </select>
-        </div>
         <div className="form-group">
           <label>Type of Exercise</label>
               <select ref="userInput"
