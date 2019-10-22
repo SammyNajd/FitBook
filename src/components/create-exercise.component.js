@@ -15,6 +15,8 @@ export default class CreateExercise extends Component{
         this.onChangeDuration = this.onChangeDuration.bind(this);
         this.onChangeDate = this.onChangeDate.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.postExercise = this.postExercise.bind(this);
+        this.onSubmitCreateNewExercise = this.onSubmitCreateNewExercise.bind(this);
 
         // State is a variable in REACT
         // ex you do not use let var =...
@@ -22,14 +24,13 @@ export default class CreateExercise extends Component{
             weight: 0,
             typeOfExercise: 'Cardio/PlyoMetrics',
             description:'',
-            duration:0,
+            duration: 0,
             date: new Date(),
-            users: []
+            users: [],
+            redir: true
         }
     }
 
-    // React lifecycle method, automatically called by react
-    // called right before anything loads on the page
     componentDidMount() {
         axios.get('http://localhost:5000/users/')
           .then(response => {
@@ -46,16 +47,17 @@ export default class CreateExercise extends Component{
     
       }
 
-    // Change the user name
-    // Always use setState, never just reassign values
+
     onChangeWeight(e){
-        this.setState({
-            weight: e.target.value
-        })
+        const reg = /^[0-9\b]+$/;
+        if(e.target.value === '' || reg.test(e.target.value)){
+            this.setState({
+                weight: Number(e.target.value)
+            })
+        }
     }
 
     onChangeTypeOfExercise(e){
-        console.log(e.target.value);
         this.setState({
             typeOfExercise: e.target.value
         })
@@ -67,13 +69,14 @@ export default class CreateExercise extends Component{
         })
     }
 
-
     onChangeDuration(e){
-        this.setState({
-            duration: e.target.value
-        })
+        const reg = /^[0-9\b]+$/;
+        if(e.target.value === '' || reg.test(e.target.value)){
+            this.setState({
+                duration: Number(e.target.value)
+            })
+        }
     }
-
 
     onChangeDate(date){
         this.setState({
@@ -81,9 +84,7 @@ export default class CreateExercise extends Component{
         })
     }
 
-    onSubmit(e){
-        e.preventDefault();
-
+    postExercise(){
         const exercise = {
             weight: this.state.weight,
             typeOfExercise: this.state.typeOfExercise,
@@ -91,13 +92,31 @@ export default class CreateExercise extends Component{
             duration: this.state.duration,
             date: this.state.date
         }
+        console.log(exercise);
 
         axios.post('http://localhost:5000/exercises/add', exercise)
             .then(res => console.log(res.data));
+    }
 
-        console.log(exercise);
+    onSubmit(e){
+        e.preventDefault();
+        this.postExercise();
+        this.redirectWindow(true);
+    }
 
-        window.location = '/';
+    onSubmitCreateNewExercise(e){
+        e.preventDefault();
+        this.postExercise();
+        this.redirectWindow(false);
+    }
+
+    redirectWindow(red){
+        if(red){
+            window.location = '/'
+        }
+        else{
+            window.location.reload();
+        }
     }
 
     //left off at 11134
@@ -137,7 +156,7 @@ export default class CreateExercise extends Component{
                             />
                     </div>
                     <div className="form-group">
-                        <label> Duration (reps or minutes): </label>
+                        <label> Duration (reps/minutes): </label>
                         <input
                             type="text"
                             className="form-control"
@@ -156,8 +175,9 @@ export default class CreateExercise extends Component{
                     </div>
 
                     <div className="form-group">
-                        <input type="submit" value="Create Exercise Log" className="btn btn-primary" />
+                        <input type="submit" onClick={this.onSubmit} value="Create Exercise and View Log" className="btn btn-primary" />
                     </div>
+                    <input type="submit" onClick={this.onSubmitCreateNewExercise} value="Create Another Exercise" className="btn btn-primary" />
                 </form>
             </div>
         )

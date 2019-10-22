@@ -29,10 +29,10 @@ export default class EditExercise extends Component {
     axios.get('http://localhost:5000/exercises/'+this.props.match.params.id)
       .then(response => {
         this.setState({
-          weight: response.data.weight,
+          weight: Number(response.data.weight),
           description: response.data.description,
           typeOfExercise: response.data.typeOfExercise,
-          duration: response.data.duration,
+          duration: Number(response.data.duration),
           date: new Date(response.data.date)
         })   
       })
@@ -54,11 +54,14 @@ export default class EditExercise extends Component {
 
   }
 
-  onChangeWeight(e) {
-    this.setState({
-      weight: e.target.value
-    })
-  }
+  onChangeWeight(e){
+    const reg = /^[0-9\b]+$/;
+    if(e.target.value === '' || reg.test(e.target.value)){
+        this.setState({
+            weight: Number(e.target.value)
+        })
+    }
+}
   onChangeTypeOfExercise(e) {
     this.setState({
       typeOfExercise: e.target.value
@@ -71,11 +74,14 @@ export default class EditExercise extends Component {
     })
   }
 
-  onChangeDuration(e) {
-    this.setState({
-      duration: e.target.value
-    })
-  }
+  onChangeDuration(e){
+    const reg = /^[0-9\b]+$/;
+    if(e.target.value === '' || reg.test(e.target.value)){
+        this.setState({
+            duration: Number(e.target.value)
+        })
+    }
+}
 
   onChangeDate(date) {
     this.setState({
