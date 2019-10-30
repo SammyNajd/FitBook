@@ -100,21 +100,13 @@ export default class CreateExercise extends Component {
   onSubmit(e) {
     e.preventDefault();
     this.postExercise();
-    this.redirectWindow(true);
+    window.location = "/";
   }
 
   onSubmitCreateNewExercise(e) {
     e.preventDefault();
     this.postExercise();
-    this.redirectWindow(false);
-  }
-
-  redirectWindow(red) {
-    if (red) {
-      window.location = "/";
-    } else {
-      window.location.reload();
-    }
+    window.location.reload();
   }
 
   //left off at 11134
