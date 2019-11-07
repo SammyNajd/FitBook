@@ -29,13 +29,15 @@ export default class ExercisesList extends Component {
     this.onChangeSearch = this.onChangeSearch.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
     this.onSelectDropDown = this.onSelectDropDown.bind(this);
+    this.getUserExercises = this.getUserExercises.bind(this);
 
     this.state = {
       exercises: [],
       searchRes: "",
       dropDownSel: "Type",
       filteredExercises: [],
-      datedExercises: Array.from(Array())
+      datedExercises: Array.from(Array()),
+      username: "Testing"
     };
   }
 
@@ -69,6 +71,10 @@ export default class ExercisesList extends Component {
   onSelectDropDown(evt) {
     this.setState({ dropDownSel: evt });
   }
+
+  // Function to get all the user's specific exercises from Mongo
+  // Assume the username has already been set
+  getUserExercises() {}
 
   componentDidMount() {
     axios
