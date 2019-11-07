@@ -74,7 +74,20 @@ export default class ExercisesList extends Component {
 
   // Function to get all the user's specific exercises from Mongo
   // Assume the username has already been set
-  getUserExercises() {}
+  getUserExercises() {
+    axios
+      .get("http://localhost:5000/exercises/")
+      .then(response => {
+        this.setState({
+          datedExercises: response.data.filter(
+            exer => exer.username === this.state.username
+          )
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
 
   componentDidMount() {
     axios
