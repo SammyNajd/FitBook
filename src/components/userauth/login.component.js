@@ -6,21 +6,20 @@ export default class Login extends Component {
     super(props);
 
     // bind the keyword "this"
-    this.onChangeUsername = this.onChangeUsername.bind(this);
+    this.onChangeEmail = this.onChangeEmail.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.onSubmitCreateNewAccount = this.onSubmitCreateNewAccount.bind(this);
 
-    // State is a variable in REACT
-    // ex you do not use let var =...
     this.state = {
-      username: "",
+      email: "",
       password: ""
     };
   }
 
-  onChangeUsername(e) {
+  onChangeEmail(e) {
     this.setState({
-      username: e.target.value
+      email: e.target.value
     });
   }
 
@@ -34,20 +33,27 @@ export default class Login extends Component {
     e.preventDefault();
 
     const user = {
-      username: this.state.username,
+      email: this.state.email,
       password: this.state.password
     };
 
     console.log(user);
 
     axios
-      .post("http://localhost:5000/users/add", user)
+      .post("http://localhost:5000/users/login", user)
       .then(res => console.log(res.data));
 
     this.setState({
-      username: "",
+      email: "",
       password: ""
     });
+
+    window.location = "/home";
+  }
+
+  onSubmitCreateNewAccount(e) {
+    e.preventDefault();
+    window.location = "/user/add";
   }
 
   render() {
@@ -60,9 +66,9 @@ export default class Login extends Component {
               type="text"
               required
               className="form-control"
-              value={this.state.username}
-              onChange={this.onChangeUsername}
-              placeholder="Username"
+              value={this.state.email}
+              onChange={this.onChangeEmail}
+              placeholder="Email Address"
             />
           </div>
           <div className="form-group">
@@ -80,6 +86,7 @@ export default class Login extends Component {
           </div>
           <input
             type="submit"
+            onClick={this.onSubmitCreateNewAccount}
             value="Create Account"
             className="btn btn-primary"
           />
