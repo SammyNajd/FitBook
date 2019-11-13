@@ -17,6 +17,6 @@ To run FitBook, execute `npm start`. It will automatically open a window to [htt
 
 
 ## Creators/Contributors 
-[Sammy Najd](https://github.com/sammynajd)
-[Max Shen](https://github.com/ms79)
+[Sammy Najd](https://github.com/sammynajd) |
+[Max Shen](https://github.com/ms79) |
 [Calvin Ho](https://github.com/caho333)
