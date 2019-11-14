@@ -10,13 +10,19 @@ export default class CreateUsers extends Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
+    this.displayUsernameStatus = this.displayUsernameStatus.bind(this);
 
     // State is a variable in REACT
     // ex you do not use let var =...
     this.state = {
       username: "",
       password: "",
-      email: ""
+      email: "",
+      minChar: 2,
+      userArray: [],
+      emailArray: [],
+      usernameStatus: "Username: ",
+      enabled: false
     };
   }
 
@@ -24,6 +30,38 @@ export default class CreateUsers extends Component {
     this.setState({
       username: e.target.value
     });
+
+    // Check if the username is already taken
+    if (this.state.username.length > this.state.minChar) {
+      axios.get("http://localhost:5000/users/").then(res => {
+        if (res.data.length > 0) {
+          this.setState({
+            userArray: res.data.map(user => user.username)
+          });
+          if (this.state.userArray.indexOf(this.state.username) !== -1) {
+            this.displayUsernameStatus(true);
+          } else {
+            this.displayUsernameStatus(false);
+          }
+        }
+      });
+    } else {
+      this.setState({
+        usernameStatus: "Username: "
+      });
+    }
+  }
+
+  displayUsernameStatus(flag) {
+    if (flag) {
+      this.setState({
+        usernameStatus: "Username: This username is already taken"
+      });
+    } else {
+      this.setState({
+        usernameStatus: "Username: This username is currently available"
+      });
+    }
   }
 
   onChangePassword(e) {
@@ -68,7 +106,7 @@ export default class CreateUsers extends Component {
         <h3>Create New User</h3>
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
-            <label>Username: </label>
+            <label>{this.state.usernameStatus}</label>
             <input
               type="text"
               required
@@ -98,6 +136,7 @@ export default class CreateUsers extends Component {
               type="submit"
               value="Create User"
               className="btn btn-primary"
+              disabled={!this.state.enabled}
             />
           </div>
         </form>
