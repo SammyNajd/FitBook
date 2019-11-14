@@ -101,7 +101,6 @@ export default class CreateUsers extends Component {
       password: e.target.value
     });
 
-    console.log(this.state.password);
     if (this.state.password.length < this.state.minPass) {
       this.setState({
         passwordStatus: "Password: Invalid, must be >6 characters",
@@ -114,7 +113,6 @@ export default class CreateUsers extends Component {
       });
     }
 
-    console.log(this.state.passwordCorrect);
     this.enableButton();
   }
 
