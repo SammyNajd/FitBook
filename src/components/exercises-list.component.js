@@ -110,6 +110,7 @@ export default class ExercisesList extends Component {
         console.log(error);
       });
     console.log("exercises: " + this.state.exercises);
+    //test
     this.sortExercises();
   }
 
@@ -124,15 +125,17 @@ export default class ExercisesList extends Component {
   }
 
   exerciseList() {
-    return this.state.filteredExercises.map(currentexercise => {
-      return (
-        <Exercise
-          exercise={currentexercise}
-          deleteExercise={this.deleteExercise}
-          key={currentexercise._id}
-        />
-      );
-    });
+    return this.state.filteredExercises
+      .map(currentexercise => {
+        return (
+          <Exercise
+            exercise={currentexercise}
+            deleteExercise={this.deleteExercise}
+            key={currentexercise._id}
+          />
+        );
+      })
+      .reverse();
   }
 
   render() {
