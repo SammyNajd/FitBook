@@ -86,7 +86,6 @@ export default class ExercisesList extends Component {
       });
     console.log("exercises: " + this.state.exercises);
     //test
-    this.sortExercises();
   }
 
   deleteExercise(id) {
