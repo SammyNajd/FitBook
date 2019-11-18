@@ -32,8 +32,6 @@ export default class ExercisesList extends Component {
     this.onChangeSearch = this.onChangeSearch.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
     this.onSelectDropDown = this.onSelectDropDown.bind(this);
-    this.sortFilteredExercises = this.sortFilteredExercises.bind(this);
-    this.sortExercises = this.sortExercises.bind(this);
 
     this.state = {
       exercises: [],
@@ -68,33 +66,10 @@ export default class ExercisesList extends Component {
         )
       });
     }
-    //this.sortFilteredExercises();
-  }
-
-  sortFilteredExercises() {
-    this.setState({
-      filteredExercises: this.state.filteredExercises.sort(
-        (date1, date2) => date2.date - date1.date
-      )
-    });
-    console.log("We sorting bruh");
-    console.log(this.state.filteredExercises);
   }
 
   onSelectDropDown(evt) {
     this.setState({ dropDownSel: evt });
-  }
-
-  sortExercises() {
-    console.log("sorting");
-    this.setState({
-      exercises: this.state.exercises.sort(function(date1, date2) {
-        console.log("Date1: " + date1.date);
-        console.log("Date2: " + date2.date);
-        return date1.date - date2.date;
-      })
-    });
-    console.log(this.state.exercises);
   }
 
   componentDidMount() {
