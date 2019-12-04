@@ -60,7 +60,7 @@ export default class Login extends Component {
   render() {
     return (
       <div>
-        <h3>Log Into Exercise Tracker</h3>
+        <h3>Log Into FitBookgit</h3>
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
             <input
