@@ -13,8 +13,6 @@ import HomePage from "./components/home-page.component";
 //verfication
 const jwt = require("jsonwebtoken");
 
-const token = localStorage.auth - token;
-
 function App() {
   return (
     <Router>
@@ -26,7 +24,7 @@ function App() {
         <Route path="/edit/:id" component={EditExercise} />
         <Route path="/create" component={CreateExercise} />
         <Route path="/user" component={CreateUser} />
-        <Route path="/login" component={Login} />
+        <Route path="/users/login" component={Login} />
       </div>
     </Router>
   );

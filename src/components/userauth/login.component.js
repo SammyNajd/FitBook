@@ -49,7 +49,7 @@ export default class Login extends Component {
       password: ""
     });
 
-    window.location = "/home";
+    //window.location = "/home";
   }
 
   onSubmitCreateNewAccount(e) {
